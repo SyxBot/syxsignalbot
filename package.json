@@ -1,0 +1,33 @@
+{
+  "name": "crypto-signal-consensus",
+  "version": "1.0.0",
+  "description": "Multi-channel crypto signal consensus detection bot",
+  "main": "crypto_signal_consensus.js",
+  "scripts": {
+    "start": "node crypto_signal_consensus.js",
+    "dev": "nodemon crypto_signal_consensus.js",
+    "test": "node test.js"
+  },
+  "dependencies": {
+    "axios": "^1.10.0",
+    "dotenv": "^16.6.1",
+    "ethers": "^6.14.4",
+    "input": "^1.0.1",
+    "node-telegram-bot-api": "^0.63.0",
+    "sentiment": "^5.0.2",
+    "telegram": "^2.26.22",
+    "ws": "^8.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "keywords": [
+    "telegram",
+    "crypto",
+    "signals",
+    "consensus",
+    "solana"
+  ],
+  "author": "Syx",
+  "license": "MIT"
+}

@@ -1,0 +1,139 @@
+
+modules = ["nodejs-20", "python-3.12"]
+run = "node index.js signal"
+
+[nix]
+channel = "stable-24_05"
+packages = ["openssl"]
+
+[deployment]
+run = ["sh", "-c", "node scripts/scheduler.js"]
+deploymentTarget = "scheduled"
+
+[workflows]
+runButton = "Main Signal Bot"
+
+[[workflows.workflow]]
+name = "Start Main Bot"
+author = 41755140
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "node index.js signal"
+
+[[workflows.workflow]]
+name = "Legacy Signal Bot"
+author = 41755140
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "node index.js legacy"
+
+[[workflows.workflow]]
+name = "Test Discovery"
+author = 41755140
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "node index.js discover"
+
+[[workflows.workflow]]
+name = "Legacy Consensus Bot"
+author = 41755140
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "node index.js consensus"
+
+[[workflows.workflow]]
+name = "Python Listener"
+author = 41755140
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd python_backup && python3 tg_message_listener_main.py"
+
+[[workflows.workflow]]
+name = "Main Bot + Discovery"
+author = 41755140
+mode = "parallel"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "node index.js signal"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "node index.js discover"
+
+[[workflows.workflow]]
+name = "Test Suppression"
+author = 41755140
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "node scripts/test_suppression.js"
+
+[[workflows.workflow]]
+name = "Python Bot Token"
+author = 41755140
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd python_backup && python3 tg_message_listener_main.py"
+
+[[workflows.workflow]]
+name = "Stop Bot"
+author = 41755140
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "echo \"Bot stopped - ready for next project\""
+
+[[workflows.workflow]]
+name = "Debug Main Bot"
+author = 41755140
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "node bot/main.js"
+
+[[workflows.workflow]]
+name = "Main Signal Bot"
+author = 41755140
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "node index.js signal"
+
+[[workflows.workflow]]
+name = "Bot + Discovery"
+author = 41755140
+mode = "parallel"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "node index.js signal"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "node index.js discover"
+
+[[workflows.workflow]]
+name = "Bot UI"
+author = 41755140
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "node bot-ui/bot_ui.js"
